@@ -1,0 +1,10 @@
+# Bibliotecas externas necessárias para o projeto
+
+# Colorama: Para mensagens coloridas no terminal
+colorama==0.4.6
+
+# Termcolor: Para facilitar a impressão de mensagens com cores
+termcolor==2.3.0
+
+# Caso queira usar filas e semáforos adicionais, embora queue e threading já sejam nativos
+# Não é necessário instalar nada para isso, mas se quiser, pode usar a biblioteca 'multiprocessing' do Python nativo
