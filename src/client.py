@@ -1,5 +1,5 @@
-import socket
-import threading
+from socket import socket, AF_INET, SOCK_STREAM
+from threading import Thread
 
 # Configurações do cliente
 HOST = 'localhost'
@@ -16,14 +16,14 @@ def receive_messages(client_socket):
             break
 
 def start_client():
-    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket = socket(AF_INET, SOCK_STREAM)
     try:
         client_socket.connect((HOST, PORT))
     except:
         print("Não foi possível conectar ao servidor.")
         return
 
-    threading.Thread(target=receive_messages, args=(client_socket,), daemon=True).start()
+    Thread(target=receive_messages, args=(client_socket,), daemon=True).start()
 
     while True:
         msg = input()

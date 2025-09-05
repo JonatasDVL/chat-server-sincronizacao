@@ -1,5 +1,5 @@
-import threading
-import socket
+from threading import Thread, Semaphore
+from socket import socket, AF_INET, SOCK_STREAM
 from queue import Queue
 
 # Configurações do servidor
@@ -8,7 +8,7 @@ PORT = 5555
 MAX_CONNECTIONS = 5
 
 # Semáforo para limitar conexões simultâneas
-semaphore = threading.Semaphore(MAX_CONNECTIONS)
+semaphore = Semaphore(MAX_CONNECTIONS)
 
 # Fila de mensagens
 message_queue = Queue()
@@ -43,16 +43,16 @@ def broadcast_messages():
                 pass
 
 def start_server():
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server = socket(AF_INET, SOCK_STREAM)
     server.bind((HOST, PORT))
     server.listen(MAX_CONNECTIONS)
     print(f"[SERVIDOR INICIADO] Rodando em {HOST}:{PORT}")
 
-    threading.Thread(target=broadcast_messages, daemon=True).start()
+    Thread(target=broadcast_messages, daemon=True).start()
 
     while True:
         client_socket, addr = server.accept()
-        threading.Thread(target=handle_client, args=(client_socket, addr), daemon=True).start()
+        Thread(target=handle_client, args=(client_socket, addr), daemon=True).start()
 
 if __name__ == "__main__":
     start_server()
