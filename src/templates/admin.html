@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Chat</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Painel Admin</h1>
+
+    <h3>Clientes ativos:</h3>
+    <ul id="active"></ul>
+
+    <h3>Fila de espera:</h3>
+    <ul id="waiting"></ul>
+
+    <h3>Chat:</h3>
+    <div id="chat"></div>
+
+    <script>
+        const socket = io();
+
+        socket.on('update_admin', data => {
+            const activeList = document.getElementById('active');
+            const waitingList = document.getElementById('waiting');
+
+            activeList.innerHTML = '';
+            data.active.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                activeList.appendChild(li);
+            });
+
+            waitingList.innerHTML = '';
+            data.waiting.forEach(name => {
+                const li = document.createElement('li');
+                li.textContent = name;
+                waitingList.appendChild(li);
+            });
+        });
+
+        socket.on('message', data => {
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<p><b>${data.user}:</b> ${data.msg}</p>`;
+        });
+    </script>
+</body>
+</html>

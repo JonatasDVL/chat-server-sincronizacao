@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cliente Chat</title>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h2>Chat Cliente</h2>
+    <input id="username" placeholder="Seu nome">
+    <button id="actionBtn" onclick="join()">Entrar</button>
+
+    <div id="status"></div>
+    <div id="chat"></div>
+
+    <input id="msg" placeholder="Mensagem">
+    <button onclick="sendMessage()">Enviar</button>
+
+    <script>
+        const socket = io();
+        let active = false;
+        let joined = false;
+
+        function join() {
+            const username = document.getElementById('username').value;
+            if (!joined) {
+                socket.emit('join', {username});
+                document.getElementById('status').innerText = 'Aguardando ativação...';
+                document.getElementById('actionBtn').innerText = 'Sair';
+                joined = true;
+            } else {
+                leave();
+            }
+        }
+
+        function leave() {
+            socket.emit('leave');
+        }
+
+        // Quando o servidor confirma saída
+        socket.on('left', () => {
+            active = false;
+            joined = false;
+            document.getElementById('status').innerText = 'Você saiu do chat.';
+            document.getElementById('actionBtn').innerText = 'Entrar';
+        });
+
+
+        socket.on('activated', () => {
+            active = true;
+            document.getElementById('status').innerText = 'Você está ativo no chat!';
+        });
+
+        socket.on('message', data => {
+            const chat = document.getElementById('chat');
+            chat.innerHTML += `<p><b>${data.user}:</b> ${data.msg}</p>`;
+        });
+
+        function sendMessage() {
+            if (!active) {
+                alert('Você ainda não está ativo no chat!');
+                return;
+            }
+            const msg = document.getElementById('msg').value;
+            socket.emit('message', {msg});
+        }
+    </script>
+</body>
+</html>

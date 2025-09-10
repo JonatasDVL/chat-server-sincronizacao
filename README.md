@@ -32,7 +32,7 @@ O servidor foi implementado em **Python** utilizando threads, filas e semáforos
 ---
 
 ## Tecnologias Utilizadas
-- **Python 3.x**  
+- **Python 3.13.3**  
 - Módulos: `socket`, `threading`, `queue`  
 - Conceitos aplicados: **Concorrência**, **Semáforos**, **Filas de Mensagens**
 
@@ -66,13 +66,11 @@ pip install -r requirements.txt
 
 ### 3. Rodar o servidor
 ```bash
-python ./src/server.py
+python ./src/app.py
 ```
 
-### 4. Conectar clientes
-```bash
-python ./src/client.py
-```
+### 4. Acesse
+<a href="http://127.0.0.1:5000/">Acesse o chat</a> e <a href="http://127.0.0.1:5000/admin">painel de controle</a>
 
 É possível rodar múltiplos clientes simultaneamente para testar o limite de conexões e o broadcast das mensagens.
 
