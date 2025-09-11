@@ -12,6 +12,9 @@ def receive_messages(client_socket):
             if not msg:
                 break
             print(msg)
+            if msg.startswith("[ERRO]"):
+                print("Encerrando cliente...") 
+                break
         except:
             break
 
@@ -24,13 +27,15 @@ def start_client():
         return
 
     Thread(target=receive_messages, args=(client_socket,), daemon=True).start()
-
+    
     while True:
-        msg = input()
-        if msg.lower() == "sair":
+        try:
+            msg = input()
+            if msg.lower() == "sair":
+                break
+            client_socket.send(msg.encode())
+        except:
             break
-        client_socket.send(msg.encode())
-
     client_socket.close()
 
 if __name__ == "__main__":
