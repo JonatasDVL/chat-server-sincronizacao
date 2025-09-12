@@ -33,7 +33,7 @@ O servidor foi implementado em **Python** utilizando threads, filas e semáforos
 
 ## Tecnologias Utilizadas
 - **Python 3.x**  
-- Módulos: `socket`, `threading`, `queue`  
+- Módulos: `socket`, `threading` 
 - Conceitos aplicados: **Concorrência**, **Semáforos**, **Filas de Mensagens**
 
 ---
