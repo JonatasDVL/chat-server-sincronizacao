@@ -1,5 +1,6 @@
 from socket import socket, AF_INET, SOCK_STREAM
 from threading import Thread
+import sys
 
 # Configurações do cliente
 HOST = 'localhost'
@@ -13,8 +14,9 @@ def receive_messages(client_socket):
                 break
             print(msg)
             if msg.startswith("[ERRO]"):
-                print("Encerrando cliente...") 
-                break
+                print("Encerrando cliente...")
+                client_socket.close()
+                sys.exit(0) 
         except:
             break
 

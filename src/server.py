@@ -6,7 +6,7 @@ from semaforo import Semaforo
 # Configurações do servidor
 HOST = 'localhost'
 PORT = 5555
-MAX_CONNECTIONS = 2
+MAX_CONNECTIONS = 5
 
 # Semáforo para limitar conexões simultâneas
 semaphore = Semaforo(MAX_CONNECTIONS)
