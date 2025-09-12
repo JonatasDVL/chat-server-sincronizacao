@@ -66,37 +66,48 @@ pip install -r requirements.txt
 
 ### 3. Rodar o servidor
 ```bash
-python ./src/server.py
+python ./src/servidor.py
 ```
 
 ### 4. Conectar clientes
 ```bash
-python ./src/client.py
+python ./src/cliente.py
+```
+
+### 5. Utilizar o Simulador
+```bash
+python ./src/simulacao.py
 ```
 
 É possível rodar múltiplos clientes simultaneamente para testar o limite de conexões e o broadcast das mensagens.
 
 ## Exemplo de Uso
 
-1. Inicie o servidor (server.py).
+1. Inicie o servidor (servidor.py).
 
-2. Abra 3 ou mais terminais e rode client.py em cada um.
+2. Abra 6 ou mais terminais e rode cliente.py em cada um.
 
 3. Envie mensagens nos clientes e veja que todas são recebidas pelos demais em ordem correta.
 
-4. Se o limite de conexões for atingido, novos clientes receberão mensagem de Servidor cheio.
+4. Se o limite de conexões for atingido, novos clientes receberão mensagem de Servidor cheio e serão encerrados.
 
 ## Observações
 
 - O servidor suporta apenas mensagens em broadcast (todos recebem a mesma mensagem).
 
-- O número máximo de conexões pode ser alterado modificando MAX_CONNECTIONS no server.py.
+- O número máximo de conexões pode ser alterado modificando MAX_CONNECTIONS no servidor.py.
 
 - O código é uma implementação didática para sincronização de processos usando semáforos.
 
-## Diagramas e Documentação
+## Outro Exemplo de Uso
 
-Toda a documentação adicional, diagramas de fluxo e prints de execução estão na pasta docs/.
+## Exemplo de Uso
+
+1. Inicie o servidor (servidor.py).
+
+2. Abra 1 ou 2 terminais e rode cliente.py em cada um.
+
+3. Abra um terminal e rode o simulacao.py, nele você pode testar o limite de conexões e o broadcast de mensagens, além de conseguir testar a fila para mensagens, garantindo que elas sejam entregues na ordem correta e sem perda de dados..
 
 ## Licença
 
