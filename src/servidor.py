@@ -18,7 +18,14 @@ message_queue = Fila()
 clients = []
 
 def handle_client(client_socket, addr):
-    #semaphore.adquirir()
+    """
+    Gerencia a conexão de um cliente.
+
+    - Adiciona o cliente à lista de conectados.
+    - Recebe mensagens em loop e coloca na fila de mensagens.
+    - Remove o cliente da lista ao desconectar.
+    - Libera uma vaga no semáforo após o encerramento.
+    """
     try:
         clients.append(client_socket)
         print(f"[CONEXÃO] {addr} conectado. Total de clientes: {len(clients)}")
@@ -36,6 +43,13 @@ def handle_client(client_socket, addr):
         print(f"[DESCONECTADO] {addr} saiu. Total de clientes: {len(clients)}")
 
 def broadcast_messages():
+    """
+    Responsável por distribuir mensagens a todos os clientes conectados.
+
+    - Fica em loop infinito.
+    - Pega a próxima mensagem da fila.
+    - Envia para todos os clientes na lista de conectados.
+    """
     while True:
         msg = message_queue.get()
         for client in clients:
@@ -45,6 +59,16 @@ def broadcast_messages():
                 pass
 
 def start_server():
+    """
+    Inicializa o servidor de chat.
+
+    1. Cria e configura o socket TCP.
+    2. Inicia a thread de broadcast.
+    3. Aceita conexões em loop:
+        - Se houver vaga no semáforo, cria uma thread para o cliente.
+        - Caso contrário, recusa a conexão enviando mensagem de erro.
+    4. Fecha o servidor ao encerrar.
+    """
     server = socket(AF_INET, SOCK_STREAM)
     server.setsockopt(SOL_SOCKET, SO_REUSEADDR, 1)
     server.bind((HOST, PORT))

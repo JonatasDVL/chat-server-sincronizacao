@@ -84,7 +84,6 @@ def start_test():
         - O tempo de entrada de cada cliente é escalonado (delay progressivo).
         - Aguarda todos os clientes terminarem antes de encerrar.
     """
-    
     clients = [] # lista para armazenar threads de clientes
     clients_count = 6 # número total de clientes a simular
     for i in range(clients_count):
