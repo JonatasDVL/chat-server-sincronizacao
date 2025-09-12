@@ -45,8 +45,11 @@ chat-server-sincronizacao/
 ├── README.md # Documentação do projeto
 ├── requirements.txt # Bibliotecas necessárias
 ├── src/ # Código-fonte
-│ ├── server.py # Servidor principal
-│ └── client.py # Cliente para testes
+│ ├── servidor.py # Servidor principal
+│ └── cliente.py # Cliente para testes
+│ └── simulacao.py # Simulação de clientes para testes
+│ └── fila.py # Implementação da fila
+│ └── semaforo.py # # Implementação do semáforo
 ````
 
 ---
@@ -107,7 +110,7 @@ python ./src/simulacao.py
 
 2. Abra 1 ou 2 terminais e rode cliente.py em cada um.
 
-3. Abra um terminal e rode o simulacao.py, nele você pode testar o limite de conexões e o broadcast de mensagens, além de conseguir testar a fila para mensagens, garantindo que elas sejam entregues na ordem correta e sem perda de dados..
+3. Abra um terminal e rode o simulacao.py, nele você pode testar o limite de conexões e o broadcast de mensagens, além de conseguir testar a fila para mensagens, garantindo que elas sejam entregues na ordem correta e sem perda de dados.
 
 ## Licença
 
